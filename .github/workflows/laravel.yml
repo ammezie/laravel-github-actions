@@ -48,3 +48,18 @@ jobs:
         run: npm install
       - name: Compile assets for production
         run: npm run production
+
+  deploy:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deployment
+        uses: appleboy/ssh-action@master
+        env:
+          HOST: ${{ secrets.SSH_HOST }}
+          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+        with:
+          args: --script 'cd /var/www/html/' --script 'git checkout -f' --script 'git pull'
