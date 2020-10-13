@@ -57,9 +57,11 @@ jobs:
         uses: actions/checkout@v2
       - name: Deployment
         uses: appleboy/ssh-action@master
-        env:
-          HOST: ${{ secrets.SSH_HOST }}
-          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          USERNAME: ${{ secrets.SSH_USERNAME }}
         with:
-          args: --script 'cd /var/www/html/' --script 'git checkout -f' --script 'git pull'
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: ${{ secrets.SSH_USERNAME }}
+          script: |
+            cd /var/www/html/
+            git checkout -f 
+            git pull origin master
