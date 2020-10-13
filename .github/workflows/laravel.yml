@@ -30,3 +30,21 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
+
+
+build:
+
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12'
+          check-latest: true
+    - name: Install NPM dependencies
+      run: npm install
+    - name: Compile assets for production
+      run: npm run production
