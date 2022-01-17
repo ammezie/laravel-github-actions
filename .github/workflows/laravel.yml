@@ -65,3 +65,6 @@ jobs:
             cd /var/www/html/
             git checkout -f 
             git pull origin master
+            composer update
+            npm i
+            npm run prod
